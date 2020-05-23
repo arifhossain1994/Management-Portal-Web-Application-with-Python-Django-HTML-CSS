@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+{% if request.session.current_user %}
+<form id="form" class="userForm" >
+    <h3>Profile</h3>
+  <table>
+    <tr>
+      <th>First Name: </th> <td>{{ user.firstName }}</td>
+    </tr>
+    <tr>
+      <th>Last Name: </th> <td>{{ user.lastName }}</td>
+    </tr>
+    <tr>
+      <th>Email: </th> <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+      <th>Role: </th> 
+      <td>{% if user.role == 1 %}
+        TA
+        {% elif user.role == 2 %}
+        Instructor
+        {% elif user.role == 3 %}
+        Admin
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <th>Phone Number: </th> <td>{{ user.phone }}</td>
+    </tr>
+    <tr>
+      <th>Address: </th> <td>{{ user.address }}</td>
+    </tr>
+    <tr>
+      <th>Office Hours: </th> <td>{{ user.officeHours }}</td>
+    </tr>
+    <tr>
+      <th>Office Dates: </th> <td>{{ user.officeHoursDates }}</td>
+    </tr>
+    <tr>
+      <th>Office Location: </th> <td>{{ user.officeLocation }}</td>
+    </tr>
+      <tr>
+      <th>Resume: </th> <td>{{ user.resume }}</td>
+    </tr>
+      <tr>
+      <th>Schedule: </th> <td>{{ user.schedule }}</td>
+    </tr>
+      <tr>
+      <th>Preferences: </th> <td>{{ user.preferences }}</td>
+    </tr>
+  
+  </table>
+  <a id="link"class="link" href='/editUser?email={{ user.email }}'>Edit</a>
+</form>
+
+
+    {% endif %}
+{% endblock content %}

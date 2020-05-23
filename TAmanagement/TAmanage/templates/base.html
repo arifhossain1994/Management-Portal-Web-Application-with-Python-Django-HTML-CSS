@@ -1,0 +1,56 @@
+{% load static %}
+        <!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TAManagement for UWM</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+
+    
+</head>
+<body>
+                <div class="bg"></div>
+                <div class="bg bg2"></div>
+                <div class="bg bg3"></div>
+                <div class="content"></div>
+                <p>
+                                <a class="image" href="//uwm.edu" target="_blank">
+                                    <img src="/static/image/UWM.png" alt="UWMilwaukee"width="350" height="107"></a>
+                                
+                                {% if request.session.current_user %}
+                                <h1>Welcome to TA Management Portal</h1>
+                                <form id="home">
+                                        <a href='/'>Home</a>
+                                                {% for cmd in cmds %}
+                                                        <a href='{{ cmd.cmdUrl }}'>
+                                                            <span>{{ cmd.cmdTxt }} </span>
+                                                        </a>
+                        
+                                                {% endfor %}
+                        
+                                        <a href='/logout'onclick="return confirm('Do You Want to Logout?')">Logout</a>
+                                         </form>
+                                {% endif %}
+                </p>
+
+                                
+                                <label1>
+                                        <form id='OutForm'>
+                                                {{ out | linebreaks }}
+                                        </form>
+                                </label1>
+                                
+                                
+                                 
+               
+                {% block content %}
+                        
+                {% endblock content %}
+                <p id="DragonText">RED DRAGON</p>
+
+</body>
+</html>
+

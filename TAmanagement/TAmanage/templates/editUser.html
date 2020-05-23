@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+  <form id="form" method="post" action="">
+      {% csrf_token %}
+        <table class="generalForm">
+            {{form}}
+        </table>
+      <br>
+      <div id="submitButton">
+      <input id="input" class="input" type="submit">
+      </div>
+  </form>
+
+
+  {% if request.session.current_user %}
+  <form id="form" class="classForm">
+    <h3>List of Users</h3>
+      <table id="userTable">
+          <tr>
+              <th>Email </th>
+              <th>First Name </th>
+              <th>Last Name </th>
+              <th>Phone </th>
+              <th>Address </th>
+              <th>Office Hours </th>
+              <th>Office Dates </th>
+              <th>Office Location </th>
+
+          </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.officeHours }}</td>
+                <td>{{ user.officeHoursDates }}</td>
+                <td>{{ user.officeLocation }}</td>
+            </tr>
+
+          {% endfor %}
+
+      </table>
+  </form>
+
+
+  {% endif %}
+
+
+{% endblock content %}

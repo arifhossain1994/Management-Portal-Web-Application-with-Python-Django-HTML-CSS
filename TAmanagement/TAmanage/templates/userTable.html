@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form id="form" class="userForm" >
+        <h3>List of Users</h3>
+
+<table border="1px solid black">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Phone #</th>
+            <!--<th>Address</th>-->
+            <th>Office Hours</th>
+            <th>Office Days</th>
+            <th>Office Location</th>
+            <th>Resume</th>
+            <th>Schedule</th>
+            <th>preferences</th>
+            
+            
+            {% if request.session.current_role == 3  %}
+            <th colspan="2">Modify</th>
+            {% endif %}
+
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                {% if user.role == 1 %}
+                    <td>TA</td>
+                {% elif user.role == 2 %}
+                    <td>Instructor</td>
+                {% elif user.role == 3 %}
+                    <td>Admin</td>
+                {% endif %}
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <!--<td>{{ user.address }}</td>-->
+                <td>{{ user.officeHours }}</td>
+                <td>{{ user.officeHoursDates }}</td>
+                <td>{{ user.officeLocation }}</td>
+                <td>{{user.resume}}</td>
+                <td>{{user.schedule}}</td>
+                <td>{{user.preferences}}</td>
+                
+                
+                {% if request.session.current_role == 3  %}
+                    <td><a href='/editUser?email={{ user.email }}'>Edit</a></td>
+                {% endif %}
+               <!-- {% if request.session.current_role == 3 or request.session.current_role == 2 %}
+                    <td><a href='/viewUser?email={{ user.email }}'>Profile</a></td>
+                {% endif %}
+                    -->
+                {% if request.session.current_role == 3  %}
+                <td><a id="delete" href='/deleteUser?email={{ user.email }}'onclick="return confirm('Do You Want to Delete User: {{user.firstName}} {{user.lastName}} ({{user.email}}) ?')">Delete</a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+</form>
+
+{% endblock content %}

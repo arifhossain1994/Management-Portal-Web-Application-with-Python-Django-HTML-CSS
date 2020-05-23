@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if request.session.current_user %}
+<form id="form" class="classForm">
+    <h3>List of courses</h3>
+
+    <table border="1px solid black">
+        <tr>
+            <th>Course Name </th>
+            <th>Section </th>
+            <th>Location </th>
+            <th>Start time </th>
+            <th>End time </th>
+            <th>Dates </th>
+            <th>Instructor</th>
+            <th>TAs</th>
+            {% if request.session.current_role == 3  %}
+            <th colspan="3">Modify</th>
+            {% endif %}
+        </tr>
+        {% for course in courses %}
+            <tr>
+                <td>{{ course.name }}</td>
+                <td>{{ course.section }}</td>
+                <td>{{ course.location }}</td>
+                <td>{{ course.startTime }}</td>
+                <td>{{ course.endTime }}</td>
+                <td>{{ course.dates }}</td>
+                <td>
+                    {% for u in course.graderTAs.all %}
+                    {% if u.role == 2 %}
+                        {{ u }} <br>
+                    {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for u in course.graderTAs.all %}
+                    {% if u.role == 1 %}
+                        {{ u }} <br>
+                    {% endif %}
+                    {% endfor %}
+                </td>
+                {% if request.session.current_role == 3  %}
+                    <td><a href='/editCourse?courseName={{ course.name }}&courseSection={{ course.section }}'>Edit</a></td>
+                    <td><a id="viewLabs" href='/viewLabs?labCourse={{ course.name }}'>View Labs</a></td>
+                    <td><a id="delete" href='/deleteCourse?courseName={{ course.name }}&courseSection={{ course.section }}'onclick="return confirm('Do You Want to Delete Course: {{course.name}} ?')">Delete</a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a id="validate" href='/validateCourse'>Validate Courses</a>
+</form>
+
+
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if not request.session.current_user %}
+        <!--<script>window.location.href='/login'</script>-->
+        <meta http-equiv="Refresh" content="0; url=/login" />
+    {% endif %}
+
+{% endblock content %}

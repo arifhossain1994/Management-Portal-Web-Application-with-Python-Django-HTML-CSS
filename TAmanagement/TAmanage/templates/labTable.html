@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if request.session.current_user %}
+<form id="form" class="classForm">
+    <h3>List of labs for course {{ labCourse }}</h3>
+
+    <table border="1px solid black">
+        <tr>
+            <th>Course Name </th>
+            <th>Section </th>
+            <th>Location </th>
+            <th>Start time </th>
+            <th>End time </th>
+            <th>Dates </th>
+{#            <th>Instructor/TA</th>#}
+            {% if request.session.current_role == 3  %}
+            <th colspan="1">Modify</th>
+            {% endif %}
+        </tr>
+        {% if labs != None %}
+            {% for lab in labs %}
+            <tr>
+                <td>{{ lab.course }}</td>
+                <td>{{ lab.section }}</td>
+                <td>{{ lab.location }}</td>
+                <td>{{ lab.startTime }}</td>
+                <td>{{ lab.endTime }}</td>
+                <td>{{ lab.dates }}</td>
+{#                <td>#}
+{#                {% for u in lab.ta %}#}
+{#                     {{ u }} #}
+{#                {% endfor %}#}
+{#                </td>#}
+                {% if request.session.current_role == 3  %}
+                    <td><a href='/editLab?labCourse={{ lab.course }}&labSection={{ lab.section }}'>Edit</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        {% endif %}
+    <td><a href='/createLab?labCourse={{ labCourse }}'>Create</a></td>
+    </table>
+    </table>
+</form>
+
+
+{% endif %}
+
+{% endblock content %}
