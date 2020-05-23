@@ -1,7 +1,7 @@
 # Management-Portal-Web-Application-with-Python-Django-HTML-CSS
 
 # To Run the app
--- Will need an virtual environment for python
+` Will need an virtual environment for python`
 
 Run the server http://127.0.0.1:8000/ and you will be taken to the login page. 
 
